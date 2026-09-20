@@ -1,4 +1,4 @@
-import { services, clinics } from '../data/site';
+import { services, clinics, team } from '../data/site';
 export function GET() {
   const paths = [
     '',
@@ -9,6 +9,14 @@ export function GET() {
     'team/',
     'former-moh-clients/',
     'locations/',
+    'create-account/',
+    'inquiry-of-services/',
+    'request-appointment/',
+    'patient-forms/',
+    'health-information-release-authorization-form/',
+    'pay-my-bill/',
+    'privacy/',
+    ...team.map((p) => `team/${p[0].toLowerCase().replaceAll(' ', '-')}/`),
     ...services.map((s) => `services/${s.slug}/`),
     ...clinics.map((c) => `locations/${c.slug}/`),
   ];

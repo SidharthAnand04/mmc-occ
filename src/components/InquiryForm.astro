@@ -1,0 +1,135 @@
+---
+import { services } from '../data/site';
+const { kind = 'Employer services' } = Astro.props;
+---
+
+<form class="inquiry-form" data-inquiry-kind={kind}>
+  <div class="form-row">
+    <label>
+      Your name
+      <input name="name" autocomplete="name" required maxlength="100" />
+    </label>
+    <label>
+      Company
+      <input
+        name="company"
+        autocomplete="organization"
+        required
+        maxlength="150"
+      />
+    </label>
+  </div>
+  <div class="form-row">
+    <label>
+      Work email
+      <input
+        name="email"
+        type="email"
+        autocomplete="email"
+        required
+        maxlength="150"
+      />
+    </label>
+    <label>
+      Phone
+      <input name="phone" type="tel" autocomplete="tel" maxlength="40" />
+    </label>
+  </div>
+  <label>
+    Service of interest
+    <select name="service" required>
+      <option value="">Select a service</option>
+      {services.map((s) => (
+        <option value={s.title}>
+          {s.title}
+          {s.inquiry ? ' (availability inquiry)' : ''}
+        </option>
+      ))}
+      <option>Employer account setup</option>
+      <option>Other question</option>
+    </select>
+  </label>
+  <label>
+    Worksite location
+    <input
+      name="location"
+      placeholder="City or worksite address"
+      maxlength="200"
+    />
+  </label>
+  <label>
+    Business inquiry
+    <textarea
+      name="message"
+      maxlength="1500"
+      placeholder="Describe your company’s needs. Do not include employee health information, test results, or medical records."
+    ></textarea>
+  </label>
+  <p class="fineprint">
+    This form prepares an email for you to review and send. It does not create
+    an account or submit an inquiry automatically. Please call for medical
+    questions.
+  </p>
+  <button class="button" type="submit">
+    Review email draft →
+  </button>
+</form>
+<section class="email-preview" hidden aria-labelledby="email-preview-title">
+  <h2 id="email-preview-title" tabindex="-1">
+    Review your inquiry
+  </h2>
+  <pre data-draft-body></pre>
+  <div class="actions">
+    <a class="button" data-send-draft href="mailto:info@mymedicalclinicmn.com">
+      Open email to send
+    </a>
+    <button class="button outline" type="button" data-copy-draft>
+      Copy draft
+    </button>
+  </div>
+  <p class="fineprint" role="status" data-draft-status>
+    Nothing has been sent. Review and send this message in your email app.
+  </p>
+</section>
+<script>
+  const form = document.querySelector<HTMLFormElement>('.inquiry-form');
+  const preview = document.querySelector<HTMLElement>('.email-preview');
+  let draft = '';
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    const d = new FormData(form);
+    draft = [
+      `Company: ${d.get('company')}`,
+      `Contact: ${d.get('name')}`,
+      `Work email: ${d.get('email')}`,
+      `Phone: ${d.get('phone') || 'Not provided'}`,
+      `Service: ${d.get('service')}`,
+      `Worksite: ${d.get('location') || 'Not provided'}`,
+      '',
+      String(d.get('message') || ''),
+    ].join('\n');
+    const body = document.querySelector('[data-draft-body]');
+    if (body) body.textContent = draft;
+    const link = document.querySelector<HTMLAnchorElement>('[data-send-draft]');
+    if (link)
+      link.href = `mailto:info@mymedicalclinicmn.com?subject=${encodeURIComponent(`${form.dataset.inquiryKind}: ${d.get('company')}`)}&body=${encodeURIComponent(draft)}`;
+    if (preview) preview.hidden = false;
+    document.querySelector<HTMLElement>('#email-preview-title')?.focus();
+  });
+  document
+    .querySelector('[data-copy-draft]')
+    ?.addEventListener('click', async () => {
+      const status = document.querySelector('[data-draft-status]');
+      try {
+        await navigator.clipboard.writeText(draft);
+        if (status)
+          status.textContent =
+            'Draft copied. Paste it into your email app to review and send.';
+      } catch {
+        if (status)
+          status.textContent =
+            'Copy was unavailable. Select and copy the draft above, or use Open email to send.';
+      }
+    });
+</script>

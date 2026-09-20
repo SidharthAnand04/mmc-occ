@@ -57,6 +57,13 @@ const schema = {
       <a class="button" href={map}>
         Get directions ↗
       </a>
+      <iframe
+        class="map-frame"
+        title={`${clinic.name} clinic map`}
+        src={`https://www.google.com/maps?q=${encodeURIComponent(clinic.street + ' ' + clinic.city)}&output=embed`}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
       <h3>Contact this clinic</h3>
       <p>
         <a class="text-link" href={telephone}>

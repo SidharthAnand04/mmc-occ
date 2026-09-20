@@ -1,18 +1,13 @@
 ---
 import '../styles/global.css';
+import '../styles/reference.css';
+import Navigation from '../components/Navigation.astro';
 import { phone, telephone, appointment, services, email } from '../data/site';
 const {
   title,
   description = 'Occupational medicine and employer healthcare at My Medical Clinic in Eagan, Maplewood, and Plymouth, Minnesota.',
 } = Astro.props;
 const path = Astro.url.pathname;
-const nav = [
-  ['Services', '/services/'],
-  ['For employers', '/employers/'],
-  ['Locations', '/locations/'],
-  ['Our team', '/team/'],
-  ['Patient resources', '/resources/'],
-];
 ---
 
 <!doctype html>
@@ -34,48 +29,7 @@ const nav = [
     <a href="#main" class="skip">
       Skip to main content
     </a>
-    <div class="utility">
-      <div class="wrap">
-        <span>Occupational healthcare in the Twin Cities</span>
-        <div>
-          <a href="https://link.clover.com/urlshortener/hy6BGn">Pay bill</a>
-          <a href="/contact/">Contact us</a>
-          <a href={telephone}>{phone}</a>
-        </div>
-      </div>
-    </div>
-    <header class="header">
-      <div class="wrap header-inner">
-        <a class="brand" href="/" aria-label="My Medical Clinic home">
-          <span class="brand-mark">
-            M<span>+</span>
-          </span>
-          <span>
-            My Medical Clinic<small>OCCUPATIONAL & EMPLOYEE HEALTH</small>
-          </span>
-        </a>
-        <button
-          class="menu-toggle"
-          aria-controls="navigation"
-          aria-expanded="false"
-        >
-          Menu <span aria-hidden="true">☰</span>
-        </button>
-        <nav id="navigation" aria-label="Main navigation">
-          {nav.map(([label, href]) => (
-            <a
-              href={href}
-              aria-current={path.startsWith(href) ? 'page' : undefined}
-            >
-              {label}
-            </a>
-          ))}
-          <a class="button small" href="/contact/">
-            Partner with MMC
-          </a>
-        </nav>
-      </div>
-    </header>
+    <Navigation />
     <div class="notice">
       <div class="wrap">
         <span>Former Minnesota Occupational Health client?</span>{' '}

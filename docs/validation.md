@@ -2,17 +2,19 @@
 
 September 20, 2026
 
-- Production static build: PASS. 18 HTML pages and sitemap generated.
-- Astro/TypeScript diagnostics: PASS. No errors, warnings, or hints across 21 source files.
-- Build-output checks: PASS. All 513 internal link/asset references resolve. Every page has exactly one H1, title, description, skip-navigation target, and noindex metadata. Image alt text and explicit dimensions are present. Location JSON-LD parses successfully. No placeholder hrefs or unfinished placeholder copy found.
-- Hero image: optimized to approximately 68 KB WebP; supplied source preserved outside the repository.
-- Fonts: self-hosted package assets; no runtime Google Fonts requests.
-- MMC source browser inspection: confirmed published patient, payment, contact and appointment destinations. No patient data, messages, bookings, or payments were submitted.
-- Production website/domain: unchanged.
+- Static build: PASS. 54 HTML pages and sitemap generated.
+- Astro/TypeScript: PASS. No errors, warnings, or hints.
+- Build-output checks: PASS. All 3,469 internal link/asset references resolve. Each page has one H1, title, description, skip target and noindex metadata. Image attributes and location structured data pass.
+- GitHub Actions: PASS on implementation commit `8315b5593764fc1edfe8b3efd1a0129e62c0cb03` (run 35543810612).
+- Images: compressed WebP assets, approximately 20–100 KB each. Fonts self-hosted.
+- Vercel: READY, Preview environment, deployment `dpl_776WhUk9c3aofnHna3NMpkw665Gi`.
+- Preview: https://mmc-occ-preview-j5m2rcj6z-sidharthanand04s-projects.vercel.app
+- Browser: homepage visual inspection passed at the available desktop viewport. Grouped service menu opens; directory search for DOT returns its matching service; employer form validates and creates a correctly addressed email draft with an explicit unsent status; clinic directory and Eagan detail navigation pass.
+- No messages, appointments, payments, or patient information were submitted.
+- Existing MMC production website/domain unchanged. The new preview project is connected to GitHub. Vercel created an initial production target inside this separate project. Pausing it also blocked new builds, so the project was resumed to retain Git automation. The review URL above is a genuine Preview deployment; no MMC production domain is attached.
 
-## Remaining checks
+## Remaining checks and content decisions
 
-- The cloud browser cannot access the local preview server (ERR_BLOCKED_BY_CLIENT). Desktop/mobile visual inspection and menu/FAQ interaction checks must be performed against the deployed preview. Responsive styles have been implemented, but a passed visual or interactive browser test is not claimed.
-- Vercel deployment is not yet complete. The connected deployment tool returns `Tool deploy_to_vercel not found`, and the local Vercel CLI has no authenticated login. No preview URL is available yet.
-- Validate the final preview at 390 px and 1440 px, including menu open/close/Escape, visible keyboard focus, card navigation, resources, clinic directions, 200% text zoom, and absence of horizontal overflow. Run a deployed accessibility/performance audit if required before production.
-- Confirm clinical/business content and image rights in `content-verification.md` before production.
+- True mobile viewport and 200% text-zoom verification were not available through this browser session. Responsive CSS is implemented, but a passed mobile visual audit is not claimed. Check 390 px and keyboard focus/overflow before production.
+- Confirm content and image rights in `content-verification.md` and the unimplemented backend/editorial differences in `reference-parity.md` before production.
+- No CRM, employer portal, secure medical questionnaire, or server-side form delivery is connected. The functioning inquiry flow prepares an email for the visitor to review and send.
