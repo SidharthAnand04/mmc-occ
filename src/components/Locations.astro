@@ -1,0 +1,28 @@
+---
+import { clinics } from '../data/site';
+import Icon from './Icon.astro';
+---
+
+<div class="location-grid">
+  {clinics.map((c) => (
+    <article class="location-card">
+      <span class="icon-box">
+        <Icon name="pin" />
+      </span>
+      <h3>{c.name}</h3>
+      <p>
+        {c.street}
+        <br />
+        {c.city}
+      </p>
+      <p class="hours-summary">
+        {c.hours[0][0]}
+        <br />
+        <strong>{c.hours[0][1]}</strong>
+      </p>
+      <a class="text-link" href={`/locations/${c.slug}/`}>
+        Hours & directions <span aria-hidden="true">↗</span>
+      </a>
+    </article>
+  ))}
+</div>

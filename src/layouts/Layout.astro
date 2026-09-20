@@ -1,0 +1,181 @@
+---
+import '../styles/global.css';
+import { phone, telephone, appointment, services, email } from '../data/site';
+const {
+  title,
+  description = 'Occupational medicine and employer healthcare at My Medical Clinic in Eagan, Maplewood, and Plymouth, Minnesota.',
+} = Astro.props;
+const path = Astro.url.pathname;
+const nav = [
+  ['Services', '/services/'],
+  ['For employers', '/employers/'],
+  ['Locations', '/locations/'],
+  ['Our team', '/team/'],
+  ['Patient resources', '/resources/'],
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="#0a2f50" />
+    <title>{title} | My Medical Clinic</title>
+    <link rel="canonical" href={new URL(path, Astro.site)} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:title" content={`${title} | My Medical Clinic`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <a href="#main" class="skip">
+      Skip to main content
+    </a>
+    <div class="utility">
+      <div class="wrap">
+        <span>Occupational healthcare in the Twin Cities</span>
+        <div>
+          <a href="https://link.clover.com/urlshortener/hy6BGn">Pay bill</a>
+          <a href="/contact/">Contact us</a>
+          <a href={telephone}>{phone}</a>
+        </div>
+      </div>
+    </div>
+    <header class="header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/" aria-label="My Medical Clinic home">
+          <span class="brand-mark">
+            M<span>+</span>
+          </span>
+          <span>
+            My Medical Clinic<small>OCCUPATIONAL & EMPLOYEE HEALTH</small>
+          </span>
+        </a>
+        <button
+          class="menu-toggle"
+          aria-controls="navigation"
+          aria-expanded="false"
+        >
+          Menu <span aria-hidden="true">☰</span>
+        </button>
+        <nav id="navigation" aria-label="Main navigation">
+          {nav.map(([label, href]) => (
+            <a
+              href={href}
+              aria-current={path.startsWith(href) ? 'page' : undefined}
+            >
+              {label}
+            </a>
+          ))}
+          <a class="button small" href="/contact/">
+            Partner with MMC
+          </a>
+        </nav>
+      </div>
+    </header>
+    <div class="notice">
+      <div class="wrap">
+        <span>Former Minnesota Occupational Health client?</span>{' '}
+        <a href="/former-moh-clients/">
+          Welcome to MMC. Get started <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+    <main id="main">
+      <slot />
+    </main>
+    <section class="closing">
+      <div class="wrap closing-inner">
+        <div>
+          <p class="eyebrow">LET’S TALK ABOUT YOUR TEAM</p>
+          <h2>
+            Healthy people.
+            <br />
+            Stronger workplaces.
+          </h2>
+        </div>
+        <div>
+          <p>
+            Find the right care for your employees.
+            <br />
+            Start a conversation with My Medical Clinic.
+          </p>
+          <a class="button white" href="/contact/">
+            Connect with our team <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="wrap footer-grid">
+        <div>
+          <a class="brand footer-brand" href="/">
+            <span class="brand-mark">
+              M<span>+</span>
+            </span>
+            <span>
+              My Medical Clinic<small>OCCUPATIONAL & EMPLOYEE HEALTH</small>
+            </span>
+          </a>
+          <p>
+            Local care. A personal connection.
+            <br />
+            Serving the Twin Cities.
+          </p>
+          <a href={telephone}>{phone}</a>
+          <br />
+          <a href={`mailto:${email}`}>{email}</a>
+        </div>
+        <div>
+          <h3>Occupational health</h3>
+          {services.slice(0, 4).map((s) => (
+            <a href={`/services/${s.slug}/`}>{s.title}</a>
+          ))}
+          <a href="/employers/">Employer services</a>
+        </div>
+        <div>
+          <h3>Your visit</h3>
+          <a href="/locations/">Clinic locations & hours</a>
+          <a href={appointment}>Request an appointment</a>
+          <a href="/resources/">Patient forms & resources</a>
+          <a href="/team/">Meet our team</a>
+        </div>
+        <div>
+          <h3>Let’s connect</h3>
+          <a href="/contact/">Employer onboarding</a>
+          <a href="/former-moh-clients/">Former MOH clients</a>
+          <a href="https://mymedicalclinicmn.com/privacy-policy/">
+            Privacy policy
+          </a>
+        </div>
+      </div>
+      <div class="wrap footer-bottom">
+        <span>© {new Date().getFullYear()} My Medical Clinic</span>
+        <span>Eagan · Maplewood · Plymouth</span>
+        <span>Design preview</span>
+      </div>
+    </footer>
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+      const nav = document.querySelector<HTMLElement>('#navigation');
+      toggle?.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') !== 'true';
+        toggle.setAttribute('aria-expanded', String(open));
+        nav?.classList.toggle('open', open);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (
+          e.key === 'Escape' &&
+          toggle?.getAttribute('aria-expanded') === 'true'
+        ) {
+          toggle.setAttribute('aria-expanded', 'false');
+          nav?.classList.remove('open');
+          toggle.focus();
+        }
+      });
+    </script>
+  </body>
+</html>

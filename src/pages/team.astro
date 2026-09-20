@@ -1,0 +1,42 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { team } from '../data/site';
+---
+
+<Layout title="Our Medical Team">
+  <PageHero
+    title="People caring for people."
+    eyebrow="MEET THE MMC TEAM"
+    description="Occupational and general healthcare starts with a personal connection. Get to know the MMC team."
+  />
+  <section class="section wrap">
+    <div class="team-grid">
+      {team.map(([name, credentials, role, description]) => (
+        <article class="team-card">
+          <span class="initials" aria-hidden="true">
+            {name
+              .split(' ')
+              .map((n) => n[0])
+              .join('')}
+          </span>
+          <h2>{name}</h2>
+          <p class="credentials">{credentials}</p>
+          <p>
+            <strong>{role}</strong>
+          </p>
+          {description && <p>{description}</p>}
+        </article>
+      ))}
+    </div>
+    <div class="callout">
+      <p>
+        Looking for a specific clinician?{' '}
+        <a class="text-link" href="/contact/">
+          Contact our team
+        </a>{' '}
+        to confirm availability.
+      </p>
+    </div>
+  </section>
+</Layout>
