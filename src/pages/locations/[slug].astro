@@ -1,0 +1,83 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { clinics, phone, telephone, appointment } from '../../data/site';
+export function getStaticPaths() {
+  return clinics.map((clinic) => ({
+    params: { slug: clinic.slug },
+    props: { clinic },
+  }));
+}
+const { clinic } = Astro.props;
+const map = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(clinic.street + ' ' + clinic.city)}`;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalClinic',
+  name: `My Medical Clinic – ${clinic.name}`,
+  telephone: '+1-651-340-1445',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: clinic.street,
+    addressLocality: clinic.name,
+    addressRegion: 'MN',
+    postalCode: clinic.city.slice(-5),
+    addressCountry: 'US',
+  },
+  url: `https://mymedicalclinicmn.com/locations/${clinic.slug}/`,
+};
+---
+
+<Layout title={`${clinic.name} Clinic | Address & Hours`}>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+  <PageHero
+    title={`${clinic.name} clinic`}
+    eyebrow="MY MEDICAL CLINIC"
+    description={`${clinic.street} · ${clinic.city}`}
+    parent={{ title: 'Locations', href: '/locations/' }}
+  />
+  <section class="section wrap content-grid">
+    <div class="prose">
+      <h2>Plan your visit.</h2>
+      <h3>Clinic hours</h3>
+      <table class="hours">
+        <caption class="mini-label">All hours are local Minnesota time</caption>
+        <tbody>
+          {clinic.hours.map(([day, hours]) => (
+            <tr>
+              <th scope="row">{day}</th>
+              <td>{hours}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p>
+        {clinic.collection} Drug screening walk-ins end at 3 pm. Call before
+        visiting to confirm your service and appointment needs.
+      </p>
+      <a class="button" href={map}>
+        Get directions ↗
+      </a>
+      <h3>Contact this clinic</h3>
+      <p>
+        <a class="text-link" href={telephone}>
+          {phone}
+        </a>
+        <br />
+        Fax: (651) 340-5421
+      </p>
+    </div>
+    <aside class="side-panel">
+      <h2>Arrange your visit.</h2>
+      <p>Contact our team to schedule and confirm what to bring.</p>
+      <a class="button" href={appointment}>
+        Request an appointment
+      </a>
+      <a class="button outline" href={telephone}>
+        Call the clinic
+      </a>
+      <a class="text-link" href="/resources/">
+        Patient forms & resources →
+      </a>
+    </aside>
+  </section>
+</Layout>

@@ -1,0 +1,22 @@
+---
+const { title, eyebrow, description, parent } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span aria-hidden="true">/</span>
+      {parent && (
+        <>
+          <a href={parent.href}>{parent.title}</a>
+          <span aria-hidden="true">/</span>
+        </>
+      )}
+      <span aria-current="page">{title}</span>
+    </nav>
+    <p class="eyebrow">{eyebrow}</p>
+    <h1>{title}</h1>
+    <p class="lead">{description}</p>
+  </div>
+</section>
