@@ -18,7 +18,7 @@ npm run preview
 ## Architecture
 
 - Home: employer-first introduction, service directory, employer process, clinic directory, and former-MOH pathway.
-- `/services/`: six service detail pages covering injury care, physicals/screenings, testing, on-site services, exposure exams, and employee health.
+- `/services/`: individual service detail pages covering injury care, physicals/screenings, testing, on-site services, exposure exams, and employee health.
 - `/employers/` and `/contact/`: employer setup guidance and functional call/email links.
 - `/locations/`: directory plus individual Eagan, Maplewood, and Plymouth pages.
 - `/team/`: verified MMC clinician names and credentials.
@@ -26,7 +26,9 @@ npm run preview
 - `/former-moh-clients/`: welcome and setup guidance without claiming automatic account or records transfer.
 - Custom 404 page; sitemap; canonical URLs and location structured data.
 
-Content is centralized in `src/data/site.ts`. Design tokens and responsive styles are in `src/styles/global.css`. Pages are pre-rendered HTML with a small navigation script, self-hosted fonts, and optimized WebP imagery.
+Content is centralized in `src/data/site.ts`. Design tokens and responsive styles are in `src/styles/global.css`. See [MOH reference parity](docs/reference-parity.md) for the current 54-page implementation and remaining content/integration differences.
+
+Pages are pre-rendered HTML with a small navigation script, self-hosted fonts, and optimized WebP imagery.
 
 ## Preview deployment
 

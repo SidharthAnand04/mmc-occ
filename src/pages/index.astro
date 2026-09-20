@@ -3,202 +3,162 @@ import Layout from '../layouts/Layout.astro';
 import ServiceGrid from '../components/ServiceGrid.astro';
 import Locations from '../components/Locations.astro';
 import Icon from '../components/Icon.astro';
-import { appointment } from '../data/site';
 ---
 
-<Layout title="Occupational Medicine & Employer Healthcare">
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow">
-          <span class="tiny-line"></span> YOUR PEOPLE. OUR PRIORITY.
-        </p>
+<Layout title="Occupational Health & Employer Services">
+  <section class="reference-hero">
+    <img
+      class="banner-photo"
+      src="/images/moh-style-banner.webp"
+      width="1800"
+      height="792"
+      alt="Three construction workers wearing safety equipment"
+      fetchpriority="high"
+    />
+    <div class="wrap banner-inner">
+      <div class="banner-panel">
         <h1>
-          Care that keeps
+          Occupational health.
           <br />
-          your workforce
+          Built around
           <br />
-          <em>moving forward.</em>
+          your workforce.
         </h1>
-        <p class="lead">
-          Occupational medicine with a personal connection. In-clinic and
-          on-site care for employers and employees across the Twin Cities.
+        <p>
+          In-clinic and on-site care for employers and employees across the Twin
+          Cities.
         </p>
-        <div class="actions">
-          <a class="button" href="/employers/">
-            Explore employer services <span aria-hidden="true">↗</span>
-          </a>
-          <a class="text-link" href="/locations/">
-            Find a clinic <span aria-hidden="true">→</span>
-          </a>
-        </div>
-        <div class="hero-proof">
-          <span>Physician-owned</span>
-          <span>Locally focused</span>
-          <span>Three clinic locations</span>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <img
-          src="/images/workforce.webp"
-          alt="Worker wearing a hard hat and safety glasses at a construction site"
-          width="1200"
-          height="707"
-          fetchpriority="high"
-        />
-        <div class="photo-caption">
-          <span class="icon-box">
-            <Icon name="heart" />
-          </span>
-          <div>
-            <strong>Built around your people.</strong>
-            <span>At work. In the clinic. Every step.</span>
-          </div>
-        </div>
+        <a class="button" href="/create-account/">
+          Partner with MMC →
+        </a>
       </div>
     </div>
   </section>
-  <section class="quick-strip">
-    <div class="wrap quick-grid">
-      <a href="/services/work-injury-care/">
-        <span class="icon-box">
-          <Icon />
-        </span>
-        <div>
-          <strong>Need work injury care?</strong>
-          <span>Connect with our clinic</span>
-        </div>
-        <span aria-hidden="true">↗</span>
-      </a>
-      <a href={appointment}>
-        <span class="icon-box">
-          <Icon name="clipboard" />
-        </span>
-        <div>
-          <strong>Planning an employee visit?</strong>
-          <span>Request an appointment</span>
-        </div>
-        <span aria-hidden="true">↗</span>
-      </a>
-      <a href="/contact/">
-        <span class="icon-box">
-          <Icon name="building" />
-        </span>
-        <div>
-          <strong>New to My Medical Clinic?</strong>
-          <span>Set up employer services</span>
-        </div>
-        <span aria-hidden="true">↗</span>
-      </a>
-    </div>
-  </section>
-  <section class="section wrap">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">OCCUPATIONAL HEALTH SERVICES</p>
-        <h2>
-          The right care.
-          <br />
-          For the work you do.
-        </h2>
-      </div>
+  <section class="reference-shortcuts wrap">
+    <a href="/request-appointment/">
+      <Icon name="clipboard" />
+      <h2>Request an appointment</h2>
+      <p>Plan an employee visit at one of our three clinic locations.</p>
+      <span class="text-link">Arrange your visit →</span>
+    </a>
+    <a href="/employers/">
+      <Icon name="building" />
+      <h2>Employer services</h2>
       <p>
-        From a new hire’s first physical to care after a workplace injury, find
-        support for the health needs of your team.
+        Find care for workplace injuries, physicals, and employee screenings.
       </p>
-    </div>
-    <ServiceGrid />
+      <span class="text-link">Explore services →</span>
+    </a>
+    <a href="/team/">
+      <Icon name="heart" />
+      <h2>Meet your clinical team</h2>
+      <p>Get to know the people behind My Medical Clinic.</p>
+      <span class="text-link">Meet our team →</span>
+    </a>
   </section>
-  <section class="employer-section">
-    <div class="wrap employer-grid">
-      <div>
-        <p class="eyebrow">A PARTNER FOR EMPLOYERS</p>
+  <section class="section reference-services">
+    <div class="wrap">
+      <div class="center-heading">
         <h2>
-          Your business is unique.
+          Occupational healthcare
           <br />
-          Your care should be, too.
+          for your business’s needs.
         </h2>
-        <p class="lead">
-          Work directly with a physician-owned clinic to discuss a healthcare
-          program that fits your workforce.
+        <p>
+          Connect your workforce with the services they need, from
+          pre-employment screening to workplace injury care.
         </p>
-        <a class="button" href="/employers/">
-          How we work with employers <span aria-hidden="true">↗</span>
+      </div>
+      <ServiceGrid photos limit={8} />
+      <div class="center-action">
+        <a class="button" href="/services/">
+          Explore all services →
         </a>
       </div>
-      <div class="benefits">
-        <div>
-          <span>01</span>
-          <div>
-            <h3>Start with your needs</h3>
-            <p>
-              Tell us about your roles, work environment, and employee health
-              requirements.
-            </p>
-          </div>
-        </div>
-        <div>
-          <span>02</span>
-          <div>
-            <h3>Connect care and work</h3>
-            <p>
-              Coordinate injury care, physicals, and screenings with the MMC
-              team.
-            </p>
-          </div>
-        </div>
-        <div>
-          <span>03</span>
-          <div>
-            <h3>Keep the conversation going</h3>
-            <p>
-              Discuss treatment and return-to-work plans with clinicians who
-              understand occupational health.
-            </p>
-          </div>
-        </div>
+    </div>
+  </section>
+  <section class="section wrap reference-split">
+    <div>
+      <h2>
+        A local partner
+        <br />
+        in employee health.
+      </h2>
+      <p>
+        My Medical Clinic combines occupational medicine and general healthcare
+        with a personal connection to employers and employees.
+      </p>
+      <p>
+        Discuss a plan around your workplace’s needs, with clinic locations in
+        Eagan, Maplewood, and Plymouth.
+      </p>
+      <a class="button" href="/employers/">
+        Work with our team →
+      </a>
+    </div>
+    <img
+      src="/images/consultation.webp"
+      alt="Illustrative photograph of a patient greeting a clinician"
+      width="1000"
+      height="667"
+      loading="lazy"
+    />
+  </section>
+  <section class="reference-blue">
+    <div class="wrap reference-split">
+      <div>
+        <h2>
+          Care after a<br />
+          workplace injury.
+        </h2>
+        <p>
+          Connect with MMC for injury evaluation, treatment, and return-to-work
+          planning.
+        </p>
+        <p>
+          Our physicians communicate with employees and employers about the
+          course of care.
+        </p>
+        <a class="button white" href="/services/work-injury-care/">
+          Work injury care →
+        </a>
+      </div>
+      <div class="blue-list">
+        <a href="/services/pre-employment-screening/">
+          Pre-employment screening <span>→</span>
+        </a>
+        <a href="/services/dot-physical-exams/">
+          DOT physical exams <span>→</span>
+        </a>
+        <a href="/services/drug-alcohol-testing/">
+          Drug & alcohol testing <span>→</span>
+        </a>
+        <a href="/services/on-site-programs/">
+          On-site programs <span>→</span>
+        </a>
       </div>
     </div>
   </section>
   <section class="section wrap">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">CLOSE TO YOUR WORKPLACE</p>
-        <h2>
-          Three clinics.
-          <br />
-          One connected team.
-        </h2>
-      </div>
-      <div>
-        <p>Find My Medical Clinic in Eagan, Maplewood, and Plymouth.</p>
-        <a class="text-link" href="/locations/">
-          All locations & hours <span aria-hidden="true">→</span>
-        </a>
-      </div>
+    <div class="center-heading">
+      <h2>Find your MMC clinic.</h2>
+      <p>Three locations serving the Twin Cities metro area.</p>
     </div>
     <Locations />
-    <p class="fineprint">
-      Drug screening walk-ins end at 3 pm. Collection hours vary by service;
-      please call before visiting.
-    </p>
   </section>
-  <section class="wrap moh-panel">
-    <div>
-      <p class="eyebrow">FORMER MINNESOTA OCCUPATIONAL HEALTH CLIENTS</p>
+  <section class="reference-welcome">
+    <div class="wrap">
       <h2>
-        A welcome place
+        Former Minnesota
         <br />
-        for your next chapter.
+        Occupational Health client?
       </h2>
-    </div>
-    <div>
       <p>
-        Looking to establish care with MMC? Our team can help you discuss your
-        company’s occupational health needs and the next steps.
+        Welcome to My Medical Clinic. Let’s discuss your company’s healthcare
+        needs and establish your services with our team.
       </p>
-      <a class="text-link" href="/former-moh-clients/">
-        Start your conversation <span aria-hidden="true">→</span>
+      <a class="button" href="/former-moh-clients/">
+        Get started with MMC →
       </a>
     </div>
   </section>

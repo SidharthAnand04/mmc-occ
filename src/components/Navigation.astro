@@ -1,0 +1,111 @@
+---
+import { services, clinics, phone, telephone } from '../data/site';
+const groups = [
+  {
+    title: 'Clinical services',
+    items: services.filter((s) => !s.inquiry && s.group !== 'On-site programs'),
+  },
+  {
+    title: 'On-site programs',
+    items: services.filter((s) => s.group === 'On-site programs'),
+  },
+  {
+    title: 'Work performance inquiries',
+    items: services.filter((s) => s.group === 'Work performance inquiries'),
+  },
+  {
+    title: 'Additional service inquiries',
+    items: services.filter((s) => s.group === 'Additional service inquiries'),
+  },
+];
+---
+
+<header class="reference-header">
+  <div class="wrap masthead">
+    <a class="brand" href="/" aria-label="My Medical Clinic home">
+      <span class="brand-mark">
+        M<span>+</span>
+      </span>
+      <span>
+        My Medical Clinic<small>OCCUPATIONAL & EMPLOYEE HEALTH</small>
+      </span>
+    </a>
+    <div class="header-actions">
+      <a href="/locations/">
+        ⌖ <span>Find a clinic</span>
+      </a>
+      <a href={telephone}>{phone}</a>
+      <a href="/pay-my-bill/">Pay my bill</a>
+    </div>
+    <button
+      class="menu-toggle"
+      aria-expanded="false"
+      aria-controls="navigation"
+    >
+      Menu <span aria-hidden="true">☰</span>
+    </button>
+  </div>
+  <nav id="navigation" class="reference-nav wrap" aria-label="Main navigation">
+    <details class="mega">
+      <summary>Services</summary>
+      <div class="mega-panel">
+        <a class="all-services" href="/services/">
+          View all services →
+        </a>
+        <div class="mega-grid">
+          {groups.map((g) => (
+            <div>
+              <h2>{g.title}</h2>
+              {g.items.map((s) => (
+                <a href={`/services/${s.slug}/`}>{s.title}</a>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </details>
+    <details class="location-menu">
+      <summary>Locations</summary>
+      <div class="location-dropdown">
+        {clinics.map((c) => (
+          <a href={`/locations/${c.slug}/`}>{c.name}</a>
+        ))}
+        <a href="/locations/">All clinics & hours</a>
+      </div>
+    </details>
+    <a href="/resources/">Resources</a>
+    <a href="/team/">Our team</a>
+    <a href="/employers/">For employers</a>
+    <a href="/contact/">Contact us</a>
+    <a class="button small" href="/create-account/">
+      Create an employer account
+    </a>
+  </nav>
+</header>
+<script>
+  const menus = Array.from(
+    document.querySelectorAll<HTMLDetailsElement>('.reference-nav details'),
+  );
+  menus.forEach((menu) =>
+    menu.addEventListener('toggle', () => {
+      if (menu.open)
+        menus.filter((m) => m !== menu).forEach((m) => (m.open = false));
+    }),
+  );
+  document.addEventListener('click', (e) => {
+    if (
+      e.target instanceof Node &&
+      !document.querySelector('.reference-nav')?.contains(e.target)
+    )
+      menus.forEach((m) => (m.open = false));
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const open = menus.find((m) => m.open);
+      if (open) {
+        open.open = false;
+        open.querySelector('summary')?.focus();
+      }
+    }
+  });
+</script>

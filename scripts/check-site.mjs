@@ -55,7 +55,7 @@ for (const file of files) {
     `placeholder in ${file}`,
   );
 }
-assert.equal(files.length, 18);
+assert.equal(files.length, 54);
 console.log(
   `PASS: ${files.length} HTML pages; ${links} internal link/asset references; metadata, H1s, skip targets, image attributes, structured data and preview noindex.`,
 );

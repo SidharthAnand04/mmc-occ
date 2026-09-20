@@ -1,22 +1,28 @@
 ---
 import { services } from '../data/site';
-import Icon from './Icon.astro';
+const { limit, photos = false } = Astro.props;
+const list = services.filter((s) => !s.inquiry).slice(0, limit);
+const picture = (s: any) =>
+  s.icon === 'test'
+    ? '/images/testing.webp'
+    : s.icon === 'clipboard' || s.icon === 'heart'
+      ? '/images/consultation.webp'
+      : '/images/workforce.webp';
 ---
 
-<div class="service-grid">
-  {services.map((s, i) => (
+<div class:list={['service-grid', { 'photo-grid': photos }]}>
+  {list.map((s) => (
     <a class="service-card" href={`/services/${s.slug}/`}>
-      <div class="card-top">
-        <span class="icon-box">
-          <Icon name={s.icon} />
+      {photos && (
+        <img src={picture(s)} alt="" width="600" height="360" loading="lazy" />
+      )}
+      <div class="service-body">
+        <h3>{s.title}</h3>
+        <p>{s.description}</p>
+        <span class="card-link">
+          Learn more <span aria-hidden="true">→</span>
         </span>
-        <span class="index">0{i + 1}</span>
       </div>
-      <h3>{s.title}</h3>
-      <p>{s.description}</p>
-      <span class="card-link">
-        Explore service <Icon name="arrow" />
-      </span>
     </a>
   ))}
 </div>

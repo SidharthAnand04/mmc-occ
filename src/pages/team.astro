@@ -26,6 +26,12 @@ import { team } from '../data/site';
             <strong>{role}</strong>
           </p>
           {description && <p>{description}</p>}
+          <a
+            class="text-link"
+            href={`/team/${name.toLowerCase().replaceAll(' ', '-')}/`}
+          >
+            View profile →
+          </a>
         </article>
       ))}
     </div>
