@@ -11,7 +11,7 @@ September 20, 2026
 - Preview: https://mmc-occ-preview-j5m2rcj6z-sidharthanand04s-projects.vercel.app
 - Browser: homepage visual inspection passed at the available desktop viewport. Grouped service menu opens; directory search for DOT returns its matching service; employer form validates and creates a correctly addressed email draft with an explicit unsent status; clinic directory and Eagan detail navigation pass.
 - No messages, appointments, payments, or patient information were submitted.
-- Existing MMC production website/domain unchanged. The new preview project is connected to GitHub. Its automatically created initial production target is paused; Preview deployments remain available.
+- Existing MMC production website/domain unchanged. The new preview project is connected to GitHub. Vercel created an initial production target inside this separate project. Pausing it also blocked new builds, so the project was resumed to retain Git automation. The review URL above is a genuine Preview deployment; no MMC production domain is attached.
 
 ## Remaining checks and content decisions
 
