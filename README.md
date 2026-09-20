@@ -26,11 +26,15 @@ npm run preview
 - `/former-moh-clients/`: welcome and setup guidance without claiming automatic account or records transfer.
 - Custom 404 page; sitemap; canonical URLs and location structured data.
 
-Content is centralized in `src/data/site.ts`. Design tokens and responsive styles are in `src/styles/global.css`. See [MOH reference parity](docs/reference-parity.md) for the current 54-page implementation and remaining content/integration differences.
+Content is centralized in `src/data/site.ts`. Design tokens and responsive styles are in `src/styles/global.css` and `src/styles/reference.css`. See [MOH reference parity](docs/reference-parity.md) for the current 54-page implementation and remaining content/integration differences.
 
 Pages are pre-rendered HTML with a small navigation script, self-hosted fonts, and optimized WebP imagery.
 
 ## Preview deployment
+
+Live review: https://mmc-occ-preview-j5m2rcj6z-sidharthanand04s-projects.vercel.app
+
+GitHub branch: `feat/moh-reference-parity`; pull request: https://github.com/SidharthAnand04/mmc-occ/pull/2. The Vercel Git integration is connected to the repository.
 
 ```sh
 vercel deploy
