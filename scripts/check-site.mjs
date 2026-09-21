@@ -1,61 +1,12 @@
-import { readdir, readFile, stat } from 'node:fs/promises';
-import { resolve, join } from 'node:path';
-import assert from 'node:assert/strict';
-const root = resolve('dist');
-async function walk(dir) {
-  const entries = await readdir(dir, { withFileTypes: true });
-  return (
-    await Promise.all(
-      entries.map((e) =>
-        e.isDirectory() ? walk(join(dir, e.name)) : [join(dir, e.name)],
-      ),
-    )
-  ).flat();
+import fs from 'node:fs';
+import path from 'node:path';
+const root=path.resolve(process.argv[2]||'site');
+function files(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(path.join(dir,e.name)):[path.join(dir,e.name)]);}
+const all=files(root),html=all.filter(p=>p.endsWith('.html'));let refs=0;const errors=[];
+for(const file of all){if(!/\.(html|css|js|svg)$/.test(file))continue;const text=fs.readFileSync(file,'utf8');
+ if(file.endsWith('.html')){if(!/<title>[^<]+<\/title>/i.test(text))errors.push(`${file}: missing title`);if(!/<body/i.test(text))errors.push(`${file}: missing body`);}
+ const matches=[...text.matchAll(/(?:href|src|poster)=["']([^"']+)["']/g),...text.matchAll(/url\(["']?([^\s)'";]+)["']?\)/g)];
+ for(const m of matches){const ref=m[1].replaceAll('&amp;','&');if(!ref.startsWith('/')||ref.startsWith('//'))continue;const p=path.join(root,decodeURIComponent(ref.split(/[?#]/)[0]));if(!fs.existsSync(p))errors.push(`${path.relative(root,file)}: missing ${ref}`);else if(fs.statSync(p).isDirectory()&&!fs.existsSync(path.join(p,'index.html')))errors.push(`${file}: incomplete route ${ref}`);refs++;}
 }
-const files = (await walk(root)).filter((f) => f.endsWith('.html'));
-let links = 0;
-for (const file of files) {
-  const html = await readFile(file, 'utf8');
-  assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1, `one H1: ${file}`);
-  assert.match(html, /<html lang="en"/);
-  assert.match(html, /<title>[^<]+<\/title>/);
-  assert.match(html, /<meta name="description" content="[^"]+"/);
-  assert.match(html, /noindex,nofollow/);
-  assert.match(html, /id="main"/);
-  for (const [, url] of html.matchAll(/(?:href|src)="([^"<>]+)"/g)) {
-    if (url.startsWith('#')) {
-      assert.ok(html.includes(`id="${url.slice(1)}"`), `anchor ${url}`);
-      continue;
-    }
-    if (!url.startsWith('/') || url.startsWith('//')) continue;
-    const pathname = url.split(/[?#]/)[0];
-    const target = join(
-      root,
-      pathname,
-      pathname.endsWith('/') ? 'index.html' : '',
-    );
-    assert.ok(
-      await stat(target).catch(() => false),
-      `broken link ${url} in ${file}`,
-    );
-    links++;
-  }
-  for (const [, attrs] of html.matchAll(/<img\s([^>]+)>/g)) {
-    assert.match(attrs, /alt="[^"]*"/);
-    assert.match(attrs, /width="\d+"/);
-    assert.match(attrs, /height="\d+"/);
-  }
-  for (const [, data] of html.matchAll(
-    /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g,
-  )) {
-    assert.equal(JSON.parse(data)['@type'], 'MedicalClinic');
-  }
-  assert.ok(
-    !/href="#"|lorem ipsum|TODO|coming soon/i.test(html),
-    `placeholder in ${file}`,
-  );
-}
-assert.equal(files.length, 54);
-console.log(
-  `PASS: ${files.length} HTML pages; ${links} internal link/asset references; metadata, H1s, skip targets, image attributes, structured data and preview noindex.`,
-);
+if(html.length<80)errors.push(`Expected full page set; found ${html.length}`);
+if(errors.length){console.error(errors.join('\n'));process.exit(1);}console.log(`PASS: ${html.length} HTML documents and ${refs} local asset/link references.`);

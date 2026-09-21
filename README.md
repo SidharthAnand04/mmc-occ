@@ -1,51 +1,19 @@
-# My Medical Clinic: occupational health redesign
+# MyMedical Occupational Health
 
-Responsive Astro website for MMC, designed around employers and occupational medicine. The existing MMC production website and domain are not changed.
+Direct static adaptation of the supplied website source, using the current My Medical Clinic identity and business information. Editable page HTML is in `site/`; shared styles, scripts, photographs, fonts and logos are in `site/assets/`.
 
-## Run locally
+## Development
 
-Requires Node 22.12+ (validated on Node 24).
+Requires Node 22 or later. Run `npm ci`, then `npm run dev`. The site runs at http://localhost:4321. Run `npm run check`, `npm run build`, and `npm test` to validate and compile all routes. `npm run preview` serves the compiled output.
 
-```sh
-npm ci
-npm run dev
-npm run check
-npm run build
-npm test
-npm run preview
-```
+## Source fidelity
 
-## Architecture
+The supplied HTML containers, stylesheet rules, typography, orange/green/navy color palette, hero images, section ordering, grids, article content and nested navigation are retained. Photos are encoded as optimized WebP. Organization-specific staff, testimonials, logos, clinic locations, addresses, phone numbers, contact destinations and metadata use current clinic information. Location photos depicting different premises are replaced with address visuals. Clinic details were checked at https://mymedicalclinicmn.com/contact-us/ on September 21, 2026.
 
-- Home: employer-first introduction, service directory, employer process, clinic directory, and former-MOH pathway.
-- `/services/`: individual service detail pages covering injury care, physicals/screenings, testing, on-site services, exposure exams, and employee health.
-- `/employers/` and `/contact/`: employer setup guidance and functional call/email links.
-- `/locations/`: directory plus individual Eagan, Maplewood, and Plymouth pages.
-- `/team/`: verified MMC clinician names and credentials.
-- `/resources/`: existing patient forms, referrals, booking, payment, and general medicine links.
-- `/former-moh-clients/`: welcome and setup guidance without claiming automatic account or records transfer.
-- Custom 404 page; sitemap; canonical URLs and location structured data.
+## Deferred connections
 
-Content is centralized in `src/data/site.ts`. Design tokens and responsive styles are in `src/styles/global.css` and `src/styles/reference.css`. See [MOH reference parity](docs/reference-parity.md) for the current 54-page implementation and remaining content/integration differences.
+Employer/contact forms prepare an email for review. The medical questionnaire stays local to the browser and does not send or persist answers. Payment and records links use the clinic's current destinations. Backend accounts, secure clinical intake and detailed mobile optimization are deferred. Service availability and clinical/legal content should receive the clinic's operational review before a production launch.
 
-Pages are pre-rendered HTML with a small navigation script, self-hosted fonts, and optimized WebP imagery.
+## Hosting
 
-## Preview deployment
-
-Live review: https://mmc-occ-preview-j5m2rcj6z-sidharthanand04s-projects.vercel.app
-
-GitHub branch: `feat/moh-reference-parity`; pull request: https://github.com/SidharthAnand04/mmc-occ/pull/2. The Vercel Git integration is connected to the repository.
-
-```sh
-vercel deploy
-```
-
-Deploy the feature branch as a **Preview**. Do not use `--prod`, promote the deployment, or attach the clinic's production domain. `vercel.json` selects Astro and `dist`.
-
-Preview indexing is deliberately disabled in HTML metadata, robots.txt, and HTTP headers. A future production launch requires an explicit decision to enable indexing, verify canonical host, and approve redirects and content. Do not remove preview protections for this review deployment.
-
-No medical data is collected by this build. Email links open the visitor's email client. Appointment, payment, and form links use existing MMC destinations. No inquiry submission or appointment confirmation is simulated.
-
-## Content review and validation
-
-See [content verification](docs/content-verification.md), [design decisions](docs/design-decisions.md), and [validation](docs/validation.md).
+Vercel builds `main` into `dist`. This project is separate from the existing clinic website and has no clinic production domain attached. Review indexing remains disabled. Git history preserves earlier iterations; the current source tree contains only the adapted site.
