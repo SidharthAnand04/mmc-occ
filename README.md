@@ -1,4 +1,4 @@
-# MyMedical Occupational Health
+# My Medical Occupational Health
 
 Direct static adaptation of the supplied website source, using the current My Medical Clinic identity and business information. Editable page HTML is in `site/`; shared styles, scripts, photographs, fonts and logos are in `site/assets/`.
 
