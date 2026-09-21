@@ -11,3 +11,5 @@
 form[data-local-only] .gform_hidden,form[data-local-only] .gfield--type-honeypot{display:none!important}
 .logo-col img{max-width:100%;height:auto}.footer-logo-col img{max-width:100%;height:auto}
 @media(max-width:767px){.mmc-inquiry .col-6,.map-sec .col-4{width:100%}}
+
+.logo-col a > img{width:170px;height:100px;object-fit:contain}.footer-logo-col a > img{object-fit:contain}
