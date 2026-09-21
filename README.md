@@ -16,4 +16,10 @@ Employer/contact forms prepare an email for review. The medical questionnaire st
 
 ## Hosting
 
-Vercel builds `main` into `dist`. This project is separate from the existing clinic website and has no clinic production domain attached. Review indexing remains disabled. Git history preserves earlier iterations; the current source tree contains only the adapted site.
+Stable site URL: **https://mmc-occupational-health.vercel.app**
+
+The Vercel project `mmc-occ-preview` is connected to `SidharthAnand04/mmc-occ` through the native GitHub integration. Every push to `main` automatically builds and deploys the site into `dist`. After a successful deployment, Vercel assigns the same stable URL above to the new version. If a build fails, the previous successful version stays available.
+
+Push source changes to `main`; no manual deploy, new link, deploy hook, or GitHub Actions deployment token is required. Individual deployment URLs remain available for inspecting older versions. Deployment status and logs are available at https://vercel.com/sidharthanand04s-projects/mmc-occ-preview/deployments.
+
+This project is separate from the existing clinic website and has no clinic production domain attached. Review indexing remains disabled. Git history preserves earlier iterations; the current source tree contains only the adapted site.
